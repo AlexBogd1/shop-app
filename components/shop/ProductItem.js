@@ -27,8 +27,8 @@ const ProductItem = props => {
                             <Image style={styles.image} source={{uri: props.image}}/>
                         </View>
                         <View style={styles.details}>
-                            <Text>{props.title}</Text>
-                            <Text>${props.price.toFixed(2)}</Text>
+                            <Text style={styles.title}>{props.title}</Text>
+                            <Text style={styles.price}>${props.price.toFixed(2)}</Text>
                         </View>
                         <View style={styles.actions}>
                             <Button color={Colors.primary} title='View Details' onPress={props.onDetail}/>
@@ -72,8 +72,9 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     title: {
+        fontFamily: 'open-sans-bold',
         fontSize: 18,
-        marginVertical: 4,
+        marginVertical: 2,
     },
     details: {
         alignItems: 'center',
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     price: {
+        fontFamily: 'open-sans',
         fontSize: 14,
         color: '#888',
     },
