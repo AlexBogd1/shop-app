@@ -1,22 +1,45 @@
 import React from "react";
-import {View, Text, Image, StyleSheet, Button} from "react-native";
+import {
+    View,
+    Text,
+    Image,
+    StyleSheet,
+    Button,
+    TouchableOpacity,
+    TouchableNativeFeedback,
+    Platform,
+} from "react-native";
 import Colors from "../../constants/Colors";
 
 const ProductItem = props => {
+    let TouchableCmp = TouchableOpacity;
+
+    if (Platform.OS === 'android') {
+        TouchableCmp = TouchableNativeFeedback;
+    }
+
     return (
         <View style={styles.product}>
-            <View style={styles.imageContainer}>
-                <Image style={styles.image} source={{uri: props.image}}/>
+            <View style ={styles.touchable}>
+                <TouchableCmp onPress={props.onDetail} useForeground>
+                    <View>
+                        <View style={styles.imageContainer}>
+                            <Image style={styles.image} source={{uri: props.image}}/>
+                        </View>
+                        <View style={styles.details}>
+                            <Text>{props.title}</Text>
+                            <Text>${props.price.toFixed(2)}</Text>
+                        </View>
+                        <View style={styles.actions}>
+                            <Button color={Colors.primary} title='View Details' onPress={props.onDetail}/>
+                            <Button color={Colors.primary} title='To Card' onPress={props.onAddToCard}/>
+                        </View>
+                    </View>
+                </TouchableCmp>
             </View>
-            <View style={styles.details}>
-                <Text>{props.title}</Text>
-                <Text>${props.price.toFixed(2)}</Text>
-            </View>
-            <View style={styles.actions}>
-                <Button color={Colors.primary} title='View Details' onPress={props.onDetail}/>
-                <Button color={Colors.primary} title='To Card' onPress={props.onAddToCard}/>
-            </View>
+
         </View>
+
     )
 };
 
@@ -32,6 +55,10 @@ const styles = StyleSheet.create({
         height: 300,
         margin: 20,
 
+    },
+    touchable: {
+        borderRadius: 10,
+        overflow: 'hidden',
     },
     imageContainer: {
         width: '100%',

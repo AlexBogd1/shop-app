@@ -13,7 +13,10 @@ const ProductsOverviewScreen = props => {
                       image={itemData.item.imageUrl}
                       title ={itemData.item.title}
                       price ={itemData.item.price}
-                      onDetail = {() => {console.log('detail')}}
+                      onDetail = {() => { props.navigation.navigate('ProductDetails', {
+                          productId: itemData.item.id,
+                          title: itemData.item.title,
+                      })}}
                       onAddToCard={() => {console.log('add to card')}}
                   />}/>
     );
