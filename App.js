@@ -10,7 +10,7 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 
 const rootReducer = combineReducers({
     products: productReducer,
-    cards: cardReducer,
+    cart: cardReducer,
 })
 const store = createStore(rootReducer,composeWithDevTools());
 
