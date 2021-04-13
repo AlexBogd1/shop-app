@@ -3,6 +3,7 @@ import {combineReducers, createStore} from 'redux';
 import {Provider} from "react-redux";
 import productReducer from './store/reducers/products';
 import cardReducer from './store/reducers/card';
+import ordersReducer from './store/reducers/orders'
 import ShopNavigator from "./navigation/ShopNavigator";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
@@ -11,6 +12,7 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 const rootReducer = combineReducers({
     products: productReducer,
     cart: cardReducer,
+    orders: ordersReducer,
 })
 const store = createStore(rootReducer,composeWithDevTools());
 
