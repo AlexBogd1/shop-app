@@ -1,5 +1,6 @@
 import {ADD_TO_CARD, REMOVE_CART_ITEM} from "../actions/card";
 import CardItem from "../../models/card-item";
+import {ADD_ORDER} from "../actions/orders";
 
 const initialState = {
     items: {},
@@ -36,14 +37,14 @@ export default (state = initialState, action) => {
             const selectedItem = state.items[action.cartItemId];
             const currentQte = selectedItem.quantity;
             let updatedCartItems;
-            if(currentQte > 1){
+            if (currentQte > 1) {
                 const updatedCartItem = new CardItem(
                     selectedItem.quantity - 1,
                     selectedItem.productPrice,
                     selectedItem.productTitle,
                     selectedItem.sum - selectedItem.productPrice,
                 );
-                updatedCartItems = {...state.items, [action.cartItemId]:updatedCartItem }
+                updatedCartItems = {...state.items, [action.cartItemId]: updatedCartItem}
             } else {
                 updatedCartItems = {...state.items};
                 delete updatedCartItems[action.cartItemId];
@@ -53,6 +54,8 @@ export default (state = initialState, action) => {
                 items: updatedCartItems,
                 totalAmount: state.totalAmount - selectedItem.productPrice
             }
+        case ADD_ORDER:
+            return initialState;
 
     }
     return state;
