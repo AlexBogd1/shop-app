@@ -19,7 +19,7 @@ const CartScreen = props => {
                 sum: state.cart.items[key].sum,
             })
         }
-        return transformCartItems.sort((a,b) => a.productId > b.productId ? 1 : -1);
+        return transformCartItems.sort((a, b) => a.productId > b.productId ? 1 : -1);
     });
     const dispatch = useDispatch();
 
@@ -27,13 +27,15 @@ const CartScreen = props => {
         <View style={styles.screen}>
             <View style={styles.summary}>
                 <Text style={styles.summaryText}>
-                    Total: <Text style={styles.amount}>${cartTotalAmount.toFixed(2)}</Text>
+                    Total: <Text style={styles.amount}>${Math.round(cartTotalAmount.toFixed(2) * 100) / 100}</Text>
                 </Text>
                 <Button
                     color={Colors.accent}
                     title='Order Now'
                     disabled={cartItems.length === 0}
-                    onPress = {() => {dispatch(addOrder(cartItems,cartTotalAmount))}}
+                    onPress={() => {
+                        dispatch(addOrder(cartItems, cartTotalAmount))
+                    }}
                 />
             </View>
             <FlatList
@@ -44,8 +46,10 @@ const CartScreen = props => {
                         title={itemData.item.productTitle}
                         amount={itemData.item.sum}
                         quantity={itemData.item.quantity}
-                        deletable = {true}
-                        onRemove ={() => {dispatch(removeCartItem(itemData.item.productId))}}
+                        deletable={true}
+                        onRemove={() => {
+                            dispatch(removeCartItem(itemData.item.productId))
+                        }}
                     />}
             />
         </View>
