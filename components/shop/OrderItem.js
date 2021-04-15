@@ -1,21 +1,24 @@
 import React, {useState} from 'react';
-import {View,Button, Text, StyleSheet, TouchableOpacity, Platform} from 'react-native';
+import {View, Button, Text, StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import {Ionicons} from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import CartItem from "./CartItem";
+import Card from "../UI/Card";
 
 const OrderItem = props => {
     const [showDetails, setShowDetails] = useState(false);
 
-    return <View style={styles.orderItem}>
+    return <Card style={styles.orderItem}>
         <View style={styles.summary}>
             <Text style={styles.totalAmount}>${props.amount.toFixed(2)}</Text>
             <Text style={styles.date}>{props.date}</Text>
         </View>
         <Button
             color={Colors.primary}
-            title={showDetails ? 'Hide Details':'Show Details' }
-            onPress ={() => { setShowDetails(prevState => !prevState)}}
+            title={showDetails ? 'Hide Details' : 'Show Details'}
+            onPress={() => {
+                setShowDetails(prevState => !prevState)
+            }}
         />
         {showDetails && <View style={styles.detailItems}>
             {props.items.map(cartItem =>
@@ -23,21 +26,14 @@ const OrderItem = props => {
                     key={cartItem.productId}
                     quantity={cartItem.quantity}
                     amount={cartItem.sum}
-                    title = {cartItem.productTitle}
+                    title={cartItem.productTitle}
                 />)}
         </View>}
-    </View>
+    </Card>
 };
 
 const styles = StyleSheet.create({
-    orderItem:{
-        shadowColor: 'black',
-        shadowOpacity: 0.28,
-        shadowOffset: {width: 0, height: 2},
-        shadowRadius: 8,
-        elevation: 5,
-        borderRadius: 10,
-        backgroundColor: 'white',
+    orderItem: {
         margin: 20,
         padding: 10,
         alignItems: 'center',

@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {View, Text, StyleSheet, ScrollView, TextInput, Platform} from "react-native";
+import {View, Text, StyleSheet, ScrollView, TextInput, Platform, Alert} from "react-native";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import HeaderButton from "../../components/UI/HeaderButton";
 import {useSelector, useDispatch} from "react-redux";
@@ -17,6 +17,8 @@ const EditProductScreen = props => {
     const [imageUrl, setImageUrl] = useState(editedProduct ? editedProduct.imageUrl : '');
     const [price, setPrice] = useState();
     const [description, setDescription] = useState(editedProduct ? editedProduct.description : '');
+
+
 
     const submitHandler = useCallback(() => {
         if(editedProduct){

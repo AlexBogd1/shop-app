@@ -39,7 +39,7 @@ const ProductsOverviewScreen = props => {
                               }}/>
                           <Button
                               color={Colors.primary}
-                              title='To Card'
+                              title='To Cart'
                               onPress={() => {
                                   dispatch(addToCard(itemData.item))
                               }}/>

@@ -14,7 +14,7 @@ const ProductDetailScreen = props => {
         <ScrollView>
             <Image style={styles.image} source={{uri: product.imageUrl}}/>
             <View style={styles.actions}>
-                <Button color={Colors.primary} title='Add to Card' onPress={() => {
+                <Button color={Colors.primary} title='Add to Cart' onPress={() => {
                     dispatch(addToCard(product));
                 }}/>
             </View>
