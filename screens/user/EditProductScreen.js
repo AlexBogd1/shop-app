@@ -14,24 +14,39 @@ const EditProductScreen = props => {
     const dispatch = useDispatch();
 
     const [title, setTitle] = useState(editedProduct ? editedProduct.title : '');
+    const [titleIsValid, setTitleIsValid] = useState(false);
     const [imageUrl, setImageUrl] = useState(editedProduct ? editedProduct.imageUrl : '');
     const [price, setPrice] = useState();
     const [description, setDescription] = useState(editedProduct ? editedProduct.description : '');
 
 
-
     const submitHandler = useCallback(() => {
-        if(editedProduct){
-            dispatch(updateProduct(prodId, title, description, imageUrl))
+        if(!titleIsValid){
+            Alert.alert('Wrong input!','Please enter valid data',[{text: 'ok'}]);
+            return
         }
-        else {
+        if (editedProduct) {
+            dispatch(updateProduct(prodId, title, description, imageUrl))
+        } else {
             dispatch(createProduct(title, description, imageUrl, +price));
         }
     }, [dispatch, title, description, imageUrl, price]);
 
     useEffect(() => {
         props.navigation.setParams({submit: submitHandler})
-    },[submitHandler]);
+    }, [submitHandler]);
+
+    const titleChangeHandler = text => {
+        if(text.trim().length === 0){
+            setTitleIsValid(false);
+
+        } else {
+            setTitleIsValid(true);
+
+        }
+
+        setTitle(text);
+    }
 
     return (
         <ScrollView>
@@ -41,7 +56,15 @@ const EditProductScreen = props => {
                     <TextInput
                         style={styles.input}
                         value={title}
-                        onChangeText={(text) => {setTitle(text)}}/>
+                        onChangeText={titleChangeHandler}
+                        autoCapitalize='sentences'
+                        keyboardType='default'
+                        autoCorrect
+                        returnKeyType='next'
+                        onEndEditing={() => console.log('onEndEditing')}
+                        onSubmitEditing={() => console.log('onSubmitEditing')}
+                    />
+                    {!titleIsValid && <Text>Please enter data</Text>}
                 </View>
                 <View style={styles.formControl}>
                     <Text style={styles.label}>Image Url</Text>
